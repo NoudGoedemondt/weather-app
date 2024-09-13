@@ -13,8 +13,8 @@ const store = useStore();
 
 const weatherData = computed(() => store.getters['weather/weatherData']);
 
-onMounted(() => {
-  store.dispatch('weather/fetchWeather');
+onMounted(async () => {
+  await store.dispatch('weather/fetchWeatherWithGeolocation');
 });
 </script>
 
