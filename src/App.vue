@@ -1,17 +1,16 @@
 <template>
   <div>
-    <h1>Weather Data</h1>
-    <pre>{{ weatherData }}</pre>
+    <daily-forecast />
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { useStore } from 'vuex';
 
-const store = useStore();
+import DailyForecast from './components/DailyForecast.vue';
 
-const weatherData = computed(() => store.getters['weather/weatherData']);
+const store = useStore();
 
 onMounted(async () => {
   await store.dispatch('weather/fetchWeatherWithGeolocation');
