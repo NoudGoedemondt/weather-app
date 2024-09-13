@@ -3,7 +3,9 @@ const state = {
 };
 
 const getters = {
-  weatherData: (state) => state.weatherData,
+  current: (state) => state.weatherData.current,
+  hourly: (state) => state.weatherData.hourly,
+  daily: (state) => state.weatherData.daily,
 };
 
 const actions = {
@@ -26,25 +28,16 @@ const actions = {
   },
 
   async fetchWeather({ commit }, { latitude, longitude }) {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,weather_code&daily=weather_code&timezone=auto`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,is_day,weather_code&hourly=temperature_2m,weather_code&daily=weather_code&timezone=auto`;
     try {
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`Response status: ${response.status}`);
       }
 
-      const { latitude, longitude, timezone_abbreviation, daily } =
-        await response.json();
+      const weatherData = await response.json();
 
-      const { time, weather_code } = daily;
-
-      commit('setWeatherData', {
-        latitude,
-        longitude,
-        timezone_abbreviation,
-        time,
-        weather_code,
-      });
+      commit('setWeatherData', weatherData);
     } catch (error) {
       console.error(error.message);
     }
