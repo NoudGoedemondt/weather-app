@@ -1,11 +1,13 @@
 const state = {
   weatherData: null,
+  loading: false,
 };
 
 const getters = {
   current: (state) => state.weatherData.current,
   hourly: (state) => state.weatherData.hourly,
   daily: (state) => state.weatherData.daily,
+  loading: (state) => state.loading,
 };
 
 const actions = {
@@ -43,12 +45,15 @@ const actions = {
     }
   },
 
-  async fetchWeatherWithGeolocation({ dispatch }) {
+  async fetchWeatherWithGeolocation({ dispatch, commit }) {
+    commit('setLoading', true);
     try {
       const { latitude, longitude } = await dispatch('fetchGeolocation');
       dispatch('fetchWeather', { latitude, longitude });
     } catch (error) {
       console.error('Error fetching geolocation or weather', error);
+    } finally {
+      commit('setLoading', false);
     }
   },
 };
@@ -56,6 +61,9 @@ const actions = {
 const mutations = {
   setWeatherData(state, data) {
     state.weatherData = data;
+  },
+  setLoading(state, status) {
+    state.loading = status;
   },
 };
 
