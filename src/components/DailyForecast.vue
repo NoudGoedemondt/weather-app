@@ -2,7 +2,7 @@
   <ul v-if="weatherData">
     <li v-for="weather in dailyWeatherData" :key="weather.date">
       <img :src="weather.day.image" :alt="weather.day.description" />
-      <h3>{{ getWeekday(weather.date) }}</h3>
+      <h3>{{ weather.weekday }}</h3>
       <p>
         <i class="fa-solid fa-caret-up"></i>
         <span>{{ weather.maxTemp }}&deg;C</span>
@@ -31,6 +31,7 @@ const dailyWeatherData = computed(() =>
     const weatherCode = daily.value.weather_code[index];
     return {
       date: date,
+      weekday: getWeekday(date),
       day: descriptions[weatherCode].day,
       night: descriptions[weatherCode].night,
       maxTemp: daily.value.temperature_2m_max[index],
