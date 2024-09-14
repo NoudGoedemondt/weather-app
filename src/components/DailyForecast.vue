@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul v-if="weatherData">
     <li v-for="weather in dailyWeatherData" :key="weather.date">
       <img :src="weather.day.image" :alt="weather.day.description" />
       <h3>{{ getWeekday(weather.date) }}</h3>
@@ -21,6 +21,8 @@ import { useStore } from 'vuex';
 import descriptions from '../assets/descriptions.json';
 
 const store = useStore();
+
+const weatherData = computed(() => store.state.weather.weatherData);
 
 const daily = computed(() => store.getters['weather/daily']);
 

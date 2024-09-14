@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="loading">Weatherdata Loading...</div>
-    <daily-forecast v-else-if="weatherData" />
+    <daily-forecast />
   </div>
 </template>
 
@@ -12,8 +12,6 @@ import { useStore } from 'vuex';
 import DailyForecast from './components/DailyForecast.vue';
 
 const store = useStore();
-
-const weatherData = computed(() => store.state.weather.weatherData);
 
 const loading = computed(() => store.getters['weather/loading']);
 
