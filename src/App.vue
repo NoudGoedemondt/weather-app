@@ -1,20 +1,23 @@
 <template>
   <div>
-    <daily-forecast />
+    <div v-if="loading">Weatherdata Loading...</div>
+    <daily-forecast v-else-if="weatherData" />
   </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, computed } from 'vue';
 import { useStore } from 'vuex';
 
 import DailyForecast from './components/DailyForecast.vue';
 
 const store = useStore();
 
-onMounted(async () => {
-  await store.dispatch('weather/fetchWeatherWithGeolocation');
-});
+const weatherData = computed(() => store.state.weather.weatherData);
+
+const loading = computed(() => store.getters['weather/loading']);
+
+onMounted(() => store.dispatch('weather/fetchWeatherWithGeolocation'));
 </script>
 
 <style>
