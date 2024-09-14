@@ -53,9 +53,9 @@ ul {
 
 li {
   text-align: center;
-  border: 1px lightgray solid;
   padding: 1rem;
   border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 img {
