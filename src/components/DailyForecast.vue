@@ -21,7 +21,7 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 import descriptions from '../assets/descriptions.json';
-import { parseISOString, getWeekdayAbbr } from '../utils/dateUtils';
+import { getWeekdayAbbr } from '../utils/dateUtils';
 
 const store = useStore();
 
@@ -32,7 +32,7 @@ const dailyWeather = computed(() => store.getters['weather/daily']);
 const dailyWeatherData = computed(() =>
   dailyWeather.value.time.map((date, index) => {
     const weatherCode = dailyWeather.value.weather_code[index];
-    const dateObject = parseISOString(date);
+    const dateObject = new Date(date);
     return {
       date: date,
       weekday: getWeekdayAbbr(dateObject),
