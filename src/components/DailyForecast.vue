@@ -1,18 +1,20 @@
 <template>
-  <ul v-if="weatherData">
-    <li v-for="weather in dailyWeatherData" :key="weather.date">
-      <img :src="weather.day.image" :alt="weather.day.description" />
-      <h3>{{ weather.weekday }}</h3>
-      <p>
-        <i class="fa-solid fa-caret-up"></i>
-        <span>{{ weather.maxTemp }}&deg;C</span>
-      </p>
-      <p>
-        <i class="fa-solid fa-caret-down"></i>
-        <span>{{ weather.minTemp }}&deg;C</span>
-      </p>
-    </li>
-  </ul>
+  <div class="container">
+    <ul v-if="weatherData">
+      <li v-for="weather in dailyWeatherData" :key="weather.date">
+        <img :src="weather.day.image" :alt="weather.day.description" />
+        <h3>{{ weather.weekday }}</h3>
+        <p>
+          <i class="fa-solid fa-caret-up"></i>
+          <span>{{ weather.maxTemp }}&deg;C</span>
+        </p>
+        <p>
+          <i class="fa-solid fa-caret-down"></i>
+          <span>{{ weather.minTemp }}&deg;C</span>
+        </p>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup>
@@ -48,32 +50,43 @@ const getWeekday = (dateString) => {
 </script>
 
 <style scoped>
+.container {
+  background-color: var(--container-bg);
+  border-radius: var(--border-radius);
+}
+
 ul {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   list-style: none;
-  gap: 1rem;
 }
 
 li {
   text-align: center;
   padding: 1rem;
   border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 img {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 50px;
+  max-height: 50px;
 }
 
 h3 {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 400;
 }
 
 p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 1rem;
+  font-weight: 200;
+}
+
+p i {
+  margin-right: 5px;
+  font-size: 0.75rem;
 }
 </style>
