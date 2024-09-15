@@ -1,8 +1,8 @@
 <template>
   <div>
     <div v-if="loading">Weatherdata Loading...</div>
+    <current-forecast />
     <daily-forecast />
-    {{ city }}
   </div>
 </template>
 
@@ -11,12 +11,11 @@ import { onMounted, computed } from 'vue';
 import { useStore } from 'vuex';
 
 import DailyForecast from './components/DailyForecast.vue';
+import CurrentForecast from './components/CurrentForecast.vue';
 
 const store = useStore();
 
 const loading = computed(() => store.getters['weather/loading']);
-
-const city = computed(() => store.getters['weather/city']);
 
 onMounted(() => store.dispatch('weather/fetchWeatherWithGeolocation'));
 </script>

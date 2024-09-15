@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import weather from './modules/weather';
+import weather from './weather';
 
 export default createStore({
   modules: {

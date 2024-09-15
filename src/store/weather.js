@@ -1,4 +1,4 @@
-import { getCityFromCoordinates } from '../../services/geocodingService';
+import { getCityFromCoordinates } from '../services/geocodingService';
 
 const state = {
   weatherData: null,
