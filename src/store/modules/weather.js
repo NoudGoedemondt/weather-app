@@ -1,6 +1,9 @@
+import { getCityFromCoordinates } from '../../services/geocodingService';
+
 const state = {
   weatherData: null,
   loading: false,
+  city: null,
 };
 
 const getters = {
@@ -8,6 +11,7 @@ const getters = {
   hourly: (state) => state.weatherData.hourly,
   daily: (state) => state.weatherData.daily,
   loading: (state) => state.loading,
+  city: (state) => state.city,
 };
 
 const actions = {
@@ -50,6 +54,9 @@ const actions = {
     try {
       const { latitude, longitude } = await dispatch('fetchGeolocation');
       dispatch('fetchWeather', { latitude, longitude });
+
+      const city = await getCityFromCoordinates(latitude, longitude);
+      commit('setCity', city);
     } catch (error) {
       console.error('Error fetching geolocation or weather', error);
     } finally {
@@ -64,6 +71,9 @@ const mutations = {
   },
   setLoading(state, status) {
     state.loading = status;
+  },
+  setCity(state, city) {
+    state.city = city;
   },
 };
 
