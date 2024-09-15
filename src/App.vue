@@ -2,6 +2,7 @@
   <main>
     <div v-if="loading">Weatherdata Loading...</div>
     <current-forecast />
+    <hourly-forecast />
     <daily-forecast />
   </main>
 </template>
@@ -12,6 +13,7 @@ import { useStore } from 'vuex';
 
 import DailyForecast from './components/DailyForecast.vue';
 import CurrentForecast from './components/CurrentForecast.vue';
+import HourlyForecast from './components/HourlyForecast.vue';
 
 const store = useStore();
 
@@ -27,6 +29,7 @@ onMounted(() => store.dispatch('weather/fetchWeatherWithGeolocation'));
   --bg-color: #0b121e;
   --container-bg: #202b3c;
   --text-color: #fff;
+  --accent-color: #0093ff;
   --border-radius: 15px;
 }
 
