@@ -26,18 +26,18 @@ const store = useStore();
 
 const weatherData = computed(() => store.state.weather.weatherData);
 
-const daily = computed(() => store.getters['weather/daily']);
+const dailyWeather = computed(() => store.getters['weather/daily']);
 
 const dailyWeatherData = computed(() =>
-  daily.value.time.map((date, index) => {
-    const weatherCode = daily.value.weather_code[index];
+  dailyWeather.value.time.map((date, index) => {
+    const weatherCode = dailyWeather.value.weather_code[index];
     return {
       date: date,
       weekday: getWeekday(date),
       day: descriptions[weatherCode].day,
       night: descriptions[weatherCode].night,
-      maxTemp: daily.value.temperature_2m_max[index],
-      minTemp: daily.value.temperature_2m_min[index],
+      maxTemp: dailyWeather.value.temperature_2m_max[index],
+      minTemp: dailyWeather.value.temperature_2m_min[index],
     };
   })
 );
