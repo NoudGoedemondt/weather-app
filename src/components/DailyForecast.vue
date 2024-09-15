@@ -65,7 +65,7 @@ ul {
 li {
   text-align: center;
   padding: 1rem;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
 }
 
 img {
