@@ -21,6 +21,7 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 import descriptions from '../assets/descriptions.json';
+import { parseISOString, getWeekdayAbbr } from '../utils/dateUtils';
 
 const store = useStore();
 
@@ -31,9 +32,10 @@ const dailyWeather = computed(() => store.getters['weather/daily']);
 const dailyWeatherData = computed(() =>
   dailyWeather.value.time.map((date, index) => {
     const weatherCode = dailyWeather.value.weather_code[index];
+    const dateObject = parseISOString(date);
     return {
       date: date,
-      weekday: getWeekday(date),
+      weekday: getWeekdayAbbr(dateObject),
       day: descriptions[weatherCode].day,
       night: descriptions[weatherCode].night,
       maxTemp: dailyWeather.value.temperature_2m_max[index],
@@ -41,12 +43,6 @@ const dailyWeatherData = computed(() =>
     };
   })
 );
-
-const getWeekday = (dateString) => {
-  const weekdays = ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'];
-  const day = new Date(dateString);
-  return weekdays[day.getDay()];
-};
 </script>
 
 <style scoped>
