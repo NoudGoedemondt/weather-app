@@ -1,4 +1,5 @@
-import { getCityFromCoordinates } from '../services/geocodingService';
+import { getCityFromCoordinates } from '@/services/geocodingService';
+import { fetchWeather } from '@/services/weatherService';
 
 const state = {
   weatherData: null,
@@ -33,27 +34,13 @@ const actions = {
     });
   },
 
-  async fetchWeather({ commit }, { latitude, longitude }) {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,is_day,weather_code&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`;
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
-
-      const weatherData = await response.json();
-
-      commit('setWeatherData', weatherData);
-    } catch (error) {
-      console.error(error.message);
-    }
-  },
-
-  async fetchWeatherWithGeolocation({ dispatch, commit }) {
+  async fetchWeatherAndCityWithGeolocation({ dispatch, commit }) {
     commit('setLoading', true);
     try {
       const { latitude, longitude } = await dispatch('fetchGeolocation');
-      dispatch('fetchWeather', { latitude, longitude });
+
+      const weatherData = await fetchWeather(latitude, longitude);
+      commit('setWeatherData', weatherData);
 
       const city = await getCityFromCoordinates(latitude, longitude);
       commit('setCity', city);

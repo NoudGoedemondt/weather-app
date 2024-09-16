@@ -19,7 +19,7 @@ const store = useStore();
 
 const loading = computed(() => store.getters['weather/loading']);
 
-onMounted(() => store.dispatch('weather/fetchWeatherWithGeolocation'));
+onMounted(() => store.dispatch('weather/fetchWeatherAndCityWithGeolocation'));
 </script>
 
 <style>
