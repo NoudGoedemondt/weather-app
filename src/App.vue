@@ -38,7 +38,7 @@ onMounted(() =>
   --text-color: #fff;
   --accent-color: #0093ff;
   --border-radius: 15px;
-  --scrollbar-height: 13px;
+  --scrollbar-height: 9px;
 }
 
 * {
@@ -60,7 +60,10 @@ main {
 }
 
 .container {
+  display: flex;
+  align-items: center;
   max-width: 700px;
+  height: 180px;
   margin: 2rem auto;
   background-color: var(--container-bg);
   border-radius: var(--border-radius);

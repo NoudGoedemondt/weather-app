@@ -2,8 +2,8 @@
   <div class="container">
     <ul>
       <li v-for="weather in dailyWeatherData" :key="weather.date">
-        <img :src="weather.day.image" :alt="weather.day.description" />
         <h3>{{ weather.weekday }}</h3>
+        <img :src="weather.day.image" :alt="weather.day.description" />
         <p>
           <i class="fa-solid fa-caret-up"></i>
           <span>{{ weather.maxTemp }}&deg;C</span>
@@ -44,11 +44,16 @@ const dailyWeatherData = computed(() =>
 </script>
 
 <style scoped>
+/* * {
+  outline: 1px red auto;
+} */
+
 ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
   list-style: none;
+  width: 100%;
 }
 
 li {
@@ -63,7 +68,6 @@ img {
 }
 
 h3 {
-  margin-bottom: 0.5rem;
   font-weight: 400;
 }
 
