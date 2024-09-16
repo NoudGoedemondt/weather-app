@@ -1,5 +1,5 @@
 <template>
-  <div class="container" v-if="weatherData">
+  <div class="container">
     <ul class="hourly-forecast" v-if="weatherData">
       <li v-for="(weather, index) in hourlyWeatherData" :key="index">
         <h3>{{ weather.hour }}</h3>
@@ -71,18 +71,18 @@ ul {
   align-items: center;
   justify-content: space-between;
   list-style: none;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  overflow: auto;
 }
 
 ul::-webkit-scrollbar {
   width: 16px;
-  height: 10px;
+  height: 13px;
 }
 
 ul::-webkit-scrollbar-track {
-  border-radius: 8px;
-  background-color: #e7e7e710;
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  background-color: var(--container-bg);
 }
 
 ul::-webkit-scrollbar-thumb {
