@@ -17,9 +17,11 @@ import HourlyForecast from './components/HourlyForecast.vue';
 
 const store = useStore();
 
-const loading = computed(() => store.getters['weather/loading']);
+const loading = computed(() => store.getters['serviceHub/loading']);
 
-onMounted(() => store.dispatch('weather/fetchWeatherAndCityWithGeolocation'));
+onMounted(() =>
+  store.dispatch('serviceHub/fetchWeatherAndCityWithGeolocation')
+);
 </script>
 
 <style>

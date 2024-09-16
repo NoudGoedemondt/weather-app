@@ -20,9 +20,9 @@ const selectedDate = ref('2024-09-17');
 
 const store = useStore();
 
-const weatherData = computed(() => store.state.weather.weatherData);
+const weatherData = computed(() => store.state.serviceHub.weatherData);
 
-const hourlyWeather = computed(() => store.getters['weather/hourly']);
+const hourlyWeather = computed(() => store.getters['serviceHub/hourly']);
 
 const hourlyWeatherData = computed(() => {
   const times = hourlyWeather.value.time;

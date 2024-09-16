@@ -1,8 +1,8 @@
 import { createStore } from 'vuex';
-import weather from './weather';
+import serviceHub from './serviceHub';
 
 export default createStore({
   modules: {
-    weather,
+    serviceHub,
   },
 });

@@ -17,10 +17,10 @@ import descriptions from '../assets/descriptions.json';
 
 const store = useStore();
 
-const weatherData = computed(() => store.state.weather.weatherData);
+const weatherData = computed(() => store.state.serviceHub.weatherData);
 
-const city = computed(() => store.getters['weather/city']);
-const currentWeather = computed(() => store.getters['weather/current']);
+const city = computed(() => store.getters['serviceHub/city']);
+const currentWeather = computed(() => store.getters['serviceHub/current']);
 
 const iconUrl = computed(() => {
   const index = currentWeather.value.weather_code;

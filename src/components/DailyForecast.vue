@@ -20,14 +20,14 @@
 <script setup>
 import { computed } from 'vue';
 import { useStore } from 'vuex';
-import descriptions from '../assets/descriptions.json';
 import { getWeekdayAbbr } from '../utils/dateUtils';
+import descriptions from '../assets/descriptions.json';
 
 const store = useStore();
 
-const weatherData = computed(() => store.state.weather.weatherData);
+const weatherData = computed(() => store.state.serviceHub.weatherData);
 
-const dailyWeather = computed(() => store.getters['weather/daily']);
+const dailyWeather = computed(() => store.getters['serviceHub/daily']);
 
 const dailyWeatherData = computed(() =>
   dailyWeather.value.time.map((date, index) => {
