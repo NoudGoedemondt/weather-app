@@ -62,7 +62,7 @@ body {
 }
 
 main {
-  margin-top: 5rem;
+  margin-top: 6rem;
 }
 
 .container {
