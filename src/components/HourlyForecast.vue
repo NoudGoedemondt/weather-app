@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="weatherData">
     <ul class="hourly-forecast" v-if="weatherData">
       <li v-for="(weather, index) in hourlyWeatherData" :key="index">
         <h3>{{ weather.hour }}</h3>
@@ -11,12 +11,12 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import { parseISOString } from '../utils/dateUtils';
 import descriptions from '../assets/descriptions.json';
 
-//const selectedDate = ref('2024-09-15');
+const selectedDate = ref('2024-09-17');
 
 const store = useStore();
 
@@ -24,19 +24,40 @@ const weatherData = computed(() => store.state.weather.weatherData);
 
 const hourlyWeather = computed(() => store.getters['weather/hourly']);
 
-const hourlyWeatherData = computed(() =>
-  hourlyWeather.value.time.map((dateTime, index) => {
-    const weatherCode = hourlyWeather.value.weather_code[index];
-    const { date, hour } = parseISOString(dateTime);
+const hourlyWeatherData = computed(() => {
+  const times = hourlyWeather.value.time;
+  const temperatures = hourlyWeather.value.temperature_2m;
+  const weatherCodes = hourlyWeather.value.weather_code;
+
+  const filteredData = times
+    .map((dateTime, index) => {
+      // Parse the date and hour from the ISO string
+      const { date, hour } = parseISOString(dateTime);
+      return { date, hour, index };
+    })
+    .filter((item) => {
+      // Filter items on selected date
+      return item.date === selectedDate.value;
+    });
+
+  // Map the filtered data to the desired output format
+  const result = filteredData.map((item) => {
+    const weatherCode = weatherCodes[item.index];
+    const temperature = temperatures[item.index];
+    const dayDescription = descriptions[weatherCode].day;
+    const nightDescription = descriptions[weatherCode].night;
+
     return {
-      date: date,
-      hour: hour,
-      temp: hourlyWeather.value.temperature_2m[index],
-      day: descriptions[weatherCode].day,
-      night: descriptions[weatherCode].night,
+      date: item.date,
+      hour: item.hour,
+      temp: temperature,
+      day: dayDescription,
+      night: nightDescription,
     };
-  })
-);
+  });
+
+  return result;
+});
 </script>
 
 <style scoped>
