@@ -11,12 +11,12 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, defineProps } from 'vue';
 import { useStore } from 'vuex';
 import { parseISOString } from '../utils/dateUtils';
 import descriptions from '../assets/descriptions.json';
 
-const selectedDate = ref('2024-09-17');
+const props = defineProps(['selectedDate']);
 
 const store = useStore();
 
@@ -35,7 +35,7 @@ const hourlyWeatherData = computed(() => {
     })
     .filter((item) => {
       // Filter items on selected date
-      return item.date === selectedDate.value;
+      return item.date === props.selectedDate;
     });
 
   // Map the filtered data to the desired output format
@@ -85,6 +85,10 @@ ul::-webkit-scrollbar-thumb {
 }
 
 li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   padding: 1rem;
 }

@@ -3,15 +3,15 @@
     <div v-if="loading">Weatherdata Loading...</div>
     <div v-else-if="weatherData">
       <current-forecast />
-      <daily-forecast />
-      <hourly-forecast />
+      <daily-forecast @dateSelected="selectDate" :selectedDate="selectedDate" />
+      <hourly-forecast :selectedDate="selectedDate" />
     </div>
     <div v-else>Weather data could not be loaded.</div>
   </main>
 </template>
 
 <script setup>
-import { onMounted, computed } from 'vue';
+import { onMounted, computed, ref } from 'vue';
 import { useStore } from 'vuex';
 
 import DailyForecast from './components/DailyForecast.vue';
@@ -20,12 +20,18 @@ import HourlyForecast from './components/HourlyForecast.vue';
 
 const store = useStore();
 
+//set selectedDate to current date
+const selectedDate = ref(new Date().toISOString().split('T')[0]);
+
 const loading = computed(() => store.getters['serviceHub/loading']);
 
 const weatherData = computed(() => store.state.serviceHub.weatherData);
 
-onMounted(() =>
-  store.dispatch('serviceHub/fetchWeatherAndCityWithGeolocation')
+const selectDate = (date) => (selectedDate.value = date);
+
+onMounted(
+  async () =>
+    await store.dispatch('serviceHub/fetchWeatherAndCityWithGeolocation')
 );
 </script>
 

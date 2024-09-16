@@ -1,7 +1,13 @@
 <template>
   <div class="container">
     <ul>
-      <li v-for="weather in dailyWeatherData" :key="weather.date">
+      <li
+        v-for="weather in dailyWeatherData"
+        :key="weather.date"
+        @click="$emit('dateSelected', weather.date)"
+        :class="{ isSelected: props.selectedDate === weather.date }"
+      >
+        <p>{{ isSelected }}</p>
         <h3>{{ weather.weekday }}</h3>
         <img :src="weather.day.image" :alt="weather.day.description" />
         <p>
@@ -18,10 +24,12 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, defineProps } from 'vue';
 import { useStore } from 'vuex';
 import { getWeekdayAbbr } from '../utils/dateUtils';
 import descriptions from '../assets/descriptions.json';
+
+const props = defineProps(['selectedDate']);
 
 const store = useStore();
 
@@ -44,22 +52,29 @@ const dailyWeatherData = computed(() =>
 </script>
 
 <style scoped>
-/* * {
-  outline: 1px red auto;
-} */
-
 ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
   list-style: none;
   width: 100%;
+  height: 100%;
 }
 
 li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   padding: 1rem;
   border-radius: var(--border-radius);
+  transition: background-color 0.2s ease-in-out;
+  height: 100%;
+}
+
+li:hover {
+  background-color: var(--accent-color);
 }
 
 img {
@@ -81,5 +96,9 @@ p {
 p i {
   margin-right: 5px;
   font-size: 0.75rem;
+}
+
+.isSelected {
+  background-color: var(--accent-color);
 }
 </style>
