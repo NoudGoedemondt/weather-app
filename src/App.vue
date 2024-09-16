@@ -2,8 +2,8 @@
   <main>
     <div v-if="loading">Weatherdata Loading...</div>
     <current-forecast />
-    <hourly-forecast />
     <daily-forecast />
+    <hourly-forecast />
   </main>
 </template>
 
@@ -31,6 +31,7 @@ onMounted(() => store.dispatch('weather/fetchWeatherWithGeolocation'));
   --text-color: #fff;
   --accent-color: #0093ff;
   --border-radius: 15px;
+  --scrollbar-height: 13px;
 }
 
 * {
@@ -54,5 +55,11 @@ body {
 .container {
   max-width: 700px;
   margin: 2rem auto;
+  background-color: var(--container-bg);
+  border-radius: var(--border-radius);
+}
+
+.container:first-of-type {
+  background-color: transparent;
 }
 </style>

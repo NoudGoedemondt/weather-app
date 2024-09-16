@@ -61,22 +61,17 @@ const hourlyWeatherData = computed(() => {
 </script>
 
 <style scoped>
-.container {
-  background-color: var(--container-bg);
-  border-radius: var(--border-radius);
-}
-
 ul {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: start;
   list-style: none;
   overflow: auto;
+  padding-top: var(--scrollbar-height);
 }
 
 ul::-webkit-scrollbar {
-  width: 16px;
-  height: 13px;
+  height: var(--scrollbar-height);
 }
 
 ul::-webkit-scrollbar-track {

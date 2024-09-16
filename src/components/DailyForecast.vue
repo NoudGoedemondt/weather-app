@@ -46,11 +46,6 @@ const dailyWeatherData = computed(() =>
 </script>
 
 <style scoped>
-.container {
-  background-color: var(--container-bg);
-  border-radius: var(--border-radius);
-}
-
 ul {
   display: flex;
   align-items: center;
