@@ -1,12 +1,12 @@
 <template>
-  <div class="container">
-    <div class="current-forecast" v-if="weatherData">
+  <div class="container current">
+    <section>
       <div>
         <h1>{{ city }}</h1>
         <h2>{{ currentWeather.temperature_2m }}&deg;C</h2>
       </div>
       <img :src="iconUrl" alt="current weather icon" />
-    </div>
+    </section>
   </div>
 </template>
 
@@ -16,8 +16,6 @@ import { useStore } from 'vuex';
 import descriptions from '../assets/descriptions.json';
 
 const store = useStore();
-
-const weatherData = computed(() => store.state.serviceHub.weatherData);
 
 const city = computed(() => store.getters['serviceHub/city']);
 const currentWeather = computed(() => store.getters['serviceHub/current']);
@@ -29,7 +27,7 @@ const iconUrl = computed(() => {
 </script>
 
 <style scoped>
-.current-forecast {
+section {
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <ul v-if="weatherData">
+    <ul>
       <li v-for="weather in dailyWeatherData" :key="weather.date">
         <img :src="weather.day.image" :alt="weather.day.description" />
         <h3>{{ weather.weekday }}</h3>
@@ -24,8 +24,6 @@ import { getWeekdayAbbr } from '../utils/dateUtils';
 import descriptions from '../assets/descriptions.json';
 
 const store = useStore();
-
-const weatherData = computed(() => store.state.serviceHub.weatherData);
 
 const dailyWeather = computed(() => store.getters['serviceHub/daily']);
 

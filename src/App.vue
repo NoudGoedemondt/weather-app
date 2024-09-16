@@ -1,9 +1,12 @@
 <template>
   <main>
     <div v-if="loading">Weatherdata Loading...</div>
-    <current-forecast />
-    <daily-forecast />
-    <hourly-forecast />
+    <div v-else-if="weatherData">
+      <current-forecast />
+      <daily-forecast />
+      <hourly-forecast />
+    </div>
+    <div v-else>Weather data could not be loaded.</div>
   </main>
 </template>
 
@@ -18,6 +21,8 @@ import HourlyForecast from './components/HourlyForecast.vue';
 const store = useStore();
 
 const loading = computed(() => store.getters['serviceHub/loading']);
+
+const weatherData = computed(() => store.state.serviceHub.weatherData);
 
 onMounted(() =>
   store.dispatch('serviceHub/fetchWeatherAndCityWithGeolocation')
@@ -44,14 +49,14 @@ onMounted(() =>
   -moz-osx-font-smoothing: grayscale;
 }
 
-main {
-  margin-top: 5rem;
-}
-
 body {
   font-family: 'Poppins', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
+}
+
+main {
+  margin-top: 5rem;
 }
 
 .container {
@@ -61,7 +66,7 @@ body {
   border-radius: var(--border-radius);
 }
 
-.container:first-of-type {
+.container.current {
   background-color: transparent;
 }
 </style>

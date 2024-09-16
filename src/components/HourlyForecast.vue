@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <ul class="hourly-forecast" v-if="weatherData">
+    <ul>
       <li v-for="(weather, index) in hourlyWeatherData" :key="index">
         <h3>{{ weather.hour }}</h3>
         <img :src="weather.day.image" :alt="weather.day.description" />
@@ -19,8 +19,6 @@ import descriptions from '../assets/descriptions.json';
 const selectedDate = ref('2024-09-17');
 
 const store = useStore();
-
-const weatherData = computed(() => store.state.serviceHub.weatherData);
 
 const hourlyWeather = computed(() => store.getters['serviceHub/hourly']);
 
