@@ -66,7 +66,7 @@ main {
   border-radius: var(--border-radius);
 }
 
-.container.current {
+.container.top {
   background-color: transparent;
 }
 </style>

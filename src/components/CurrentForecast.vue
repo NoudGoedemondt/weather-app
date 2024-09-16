@@ -1,5 +1,5 @@
 <template>
-  <div class="container current">
+  <div class="container top">
     <section>
       <div>
         <h1>{{ city }}</h1>
